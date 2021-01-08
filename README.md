@@ -34,7 +34,7 @@ Notice how the target is declared in `Package.swift`:
 
 Until Swift concurrency features become stable and enabled by default you have to pass these flags
 when building. They are declared in the package manifest here so that you don't have to pass them
-each time manually for building the project.
+each time manually when building the project.
 
 ### Imports
 
@@ -93,8 +93,8 @@ print("end of main")
 ```
 
 Note that in the current toolchain (`DEVELOPMENT-SNAPSHOT-2021-01-07-a` at the moment of writing)
-`runAsyncAndBlock` does not take throwing closures as arguments, thus `try!` have to be used to call
-a throwing `async` function such as `download`.
+`runAsyncAndBlock` does not take throwing closures as arguments, thus `try!` or `do`/`catch` blocks
+are a throwing `async` function such as `download`.
 
 The `print` statements here are added so that you can observe the execution sequence and to make sure
 that your `async` code is actually called.
