@@ -24,7 +24,7 @@ Notice how the target is declared in `Package.swift`:
 
 ```swift
 .target(
-    name: "ConcurrencyPlayground",
+    name: "ConcurrencyExample",
     dependencies: [],
     swiftSettings: [
         .unsafeFlags(["-Xfrontend", "-enable-experimental-concurrency"]),
