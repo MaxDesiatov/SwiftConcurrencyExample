@@ -1,4 +1,4 @@
-# SwiftConcurrencyPlayground
+# SwiftConcurrencyExample
 
 A SwiftPM CLI package experimenting with Swift `async`/`await` and structured concurrency.
 Requires [the latest development snapshot](https://swift.org/download/#snapshots) to run.
