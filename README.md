@@ -94,7 +94,7 @@ print("end of main")
 
 Note that in the current toolchain (`DEVELOPMENT-SNAPSHOT-2021-01-07-a` at the moment of writing)
 `runAsyncAndBlock` does not take throwing closures as arguments, thus `try!` or `do`/`catch` blocks
-are a throwing `async` function such as `download`.
+are required to call a throwing `async` function such as `download`.
 
 The `print` statements here are added so that you can observe the execution sequence and to make sure
 that your `async` code is actually called.
