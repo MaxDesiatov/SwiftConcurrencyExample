@@ -66,9 +66,9 @@ import Foundation
 
 struct UnknownError: Error {}
 
-func download(url: URL) async throws -> Data {
+func download(_ url: String) async throws -> Data {
     try await withUnsafeThrowingContinuation { c in
-        let task = URLSession.shared.dataTask(with: url) { data, _, error in
+        let task = URLSession.shared.dataTask(with: URL(string: url)!) { data, _, error in
             switch (data, error) {
             case let (_, error?):
                 return c.resume(throwing: error)
@@ -97,7 +97,7 @@ Currently, the `runAsyncAndBlock` function is an entry point you would use to in
 ```swift
 runAsyncAndBlock {
     print("task started")
-    let data = try! await download(url: URL(string: "https://httpbin.org/uuid")!)
+    let data = try! await download("https://httpbin.org/uuid")
     print(String(data: data, encoding: .utf8)!)
 }
 print("end of main")
@@ -109,3 +109,30 @@ are required to call a throwing `async` function such as `download`.
 
 The `print` statements here are added so that you can observe the execution sequence and to make sure
 that your `async` code is actually called.
+
+### Launching concurrent tasks with `async let`
+
+Let's say you need to fetch ids for multiple entities, but you can only get a single one through
+an asynchronous call. In some naive implementation you would make `await` for async calls repeatedly
+one by one until you fetch all of the data. This is highly inefficient if these calls are independent
+and can all run simultaneously without disrupting each other.
+
+You can launch multiple async tasks concurrently with `async let` declarations. Then if you need to
+wait for all of them to complete, just use a single `await` marker on both of the values that
+were declared with `async let`:
+
+```swift
+async let uuid1 = download("https://httpbin.org/uuid")
+async let uuid2 = download("https://httpbin.org/uuid")
+
+try! await print("""
+ids fetched conncurrently:
+\(String(data: uuid1, encoding: .utf8)!)\(String(data: uuid2, encoding: .utf8)!)
+""")
+```
+
+Here you two separate `uuid1` and `uuid2` tasks are launched concurrently, and they don't block each
+other. The `try! await` markers before `print` mean that `print` won't evaluated before both of
+the tasks have completed. Note that when using [`Dispatch`](https://developer.apple.com/documentation/dispatch)
+of `async let` you'd have to set up a [`DispatchGroup`](https://developer.apple.com/documentation/dispatch/dispatchgroup)
+instance, which is much more cumbersome to work with.
