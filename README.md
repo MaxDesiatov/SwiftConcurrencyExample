@@ -2,18 +2,21 @@
 
 A SwiftPM CLI package experimenting with Swift `async`/`await` and structured concurrency.
 Requires [the latest development snapshot](https://swift.org/download/#snapshots) to run.
+Note that 5.4 snapshots currently aren't fully compatible with this sample code, as they are a bit
+out of date with the accepted `async`/`await` proposal, requiring the use of `await try` instead of `try await`.
+It should work though if you adjust the code here manually to account for that.
 
 After installing the toolchain, you can build the executable with
 
 ```shell
-/Library/Developer/Toolchains/swift-DEVELOPMENT-SNAPSHOT-2021-01-07-a.xctoolchain/usr/bin/swift build
+/Library/Developer/Toolchains/swift-DEVELOPMENT-SNAPSHOT-2021-01-12-a.xctoolchain/usr/bin/swift build
 ```
 
 Before running anything in the project, you have to point it to the
 new concurrency runtime by modifying the `DYLD_LIBRARY_PATH` environment variable.
 
 ```shell
-export DYLD_LIBRARY_PATH=/Library/Developer/Toolchains/swift-DEVELOPMENT-SNAPSHOT-2021-01-07-a.xctoolchain/usr/lib/swift/macosx/
+export DYLD_LIBRARY_PATH=/Library/Developer/Toolchains/swift-DEVELOPMENT-SNAPSHOT-2021-01-12-a.xctoolchain/usr/lib/swift/macosx/
 ```
 
 Then run the executable directly:
@@ -100,7 +103,7 @@ runAsyncAndBlock {
 print("end of main")
 ```
 
-Note that in the current toolchain (`DEVELOPMENT-SNAPSHOT-2021-01-07-a` at the moment of writing)
+Note that in the current toolchain (`DEVELOPMENT-SNAPSHOT-2021-01-12-a` at the moment of writing)
 `runAsyncAndBlock` does not take throwing closures as arguments, thus `try!` or `do`/`catch` blocks
 are required to call a throwing `async` function such as `download`.
 
