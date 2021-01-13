@@ -3,18 +3,26 @@
 A SwiftPM CLI package experimenting with Swift `async`/`await` and structured concurrency.
 Requires [the latest development snapshot](https://swift.org/download/#snapshots) to run.
 
-After installing the toolchain, before running anything in the project you have to point it to the
+After installing the toolchain, you can build the executable with
+
+```shell
+/Library/Developer/Toolchains/swift-DEVELOPMENT-SNAPSHOT-2021-01-07-a.xctoolchain/usr/bin/swift build
+```
+
+Before running anything in the project, you have to point it to the
 new concurrency runtime by modifying the `DYLD_LIBRARY_PATH` environment variable.
 
 ```shell
 export DYLD_LIBRARY_PATH=/Library/Developer/Toolchains/swift-DEVELOPMENT-SNAPSHOT-2021-01-07-a.xctoolchain/usr/lib/swift/macosx/
 ```
 
-Then run it as
+Then run the executable directly:
 
 ```shell
-/Library/Developer/Toolchains/swift-DEVELOPMENT-SNAPSHOT-2021-01-07-a.xctoolchain/usr/bin/swift run
+.build/debug/ConcurrencyExample
 ```
+
+(You can't use `swift run` to run the executable on macOS because Sytem Integrity Protection [doesn't pass the `DYLD_LIBRARY-PATH` variable to SIP-protected processes](https://developer.apple.com/library/archive/documentation/Security/Conceptual/System_Integrity_Protection_Guide/RuntimeProtections/RuntimeProtections.html).)
 
 ## Reviewing the code
 
