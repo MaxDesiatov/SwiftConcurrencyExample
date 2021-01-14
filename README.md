@@ -29,4 +29,4 @@ Then run the executable directly:
 
 ## Reviewing the code
 
-Please refer to this article for a detailed review of code in this package – ["Introduction to structured concurrency in Swift: continuations, tasks, and cancellation"](https://desiatov.com/swift-structured-concurrency-introduction/).
+Please refer to this article for a detailed review of code in the package – ["Introduction to structured concurrency in Swift: continuations, tasks, and cancellation"](https://desiatov.com/swift-structured-concurrency-introduction/).
