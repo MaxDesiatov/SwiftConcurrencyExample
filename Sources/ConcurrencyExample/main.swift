@@ -45,7 +45,7 @@ func childTasks() async throws -> String {
     print("\(#function) is not cancelled yet")
 
     return try await """
-    ids fetched conncurrently:
+    ids fetched concurrently:
     \(String(data: uuid1, encoding: .utf8)!)\(String(data: uuid2, encoding: .utf8)!)
     """
 }
